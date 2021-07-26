@@ -49,22 +49,27 @@ year.addEventListener('change', e => {
 
 minimo.addEventListener('change', e => {
     datosBusqueda.minimo = e.target.value;
+    filtrarAuto();
 });
 
 maximo.addEventListener('change', e => {
     datosBusqueda.maximo = e.target.value;
+    filtrarAuto();
 });
 
 puertas.addEventListener('change', e => {
     datosBusqueda.puertas = e.target.value;
+    filtrarAuto();
 });
 
 transmision.addEventListener('change', e => {
     datosBusqueda.transmision = e.target.value;
+    filtrarAuto();
 });
 
 color.addEventListener('change', e => {
     datosBusqueda.color = e.target.value;
+    filtrarAuto();
     console.log(datosBusqueda);
 });
 
@@ -110,7 +115,8 @@ function LlenarSelect() {
 
 
 function filtrarAuto(){
-    const result = autos.filter( filtraPorMarca ).filter( filtrarPorAño );
+    const result = autos.filter( filtraPorMarca ).filter( filtrarPorAño ).filter( filtrarPorMinimo ).filter( filtrarPorMaximo ).
+    filter( filtrarPorPuertas ).filter( filtrarPorTransmision ).filter( filtrarPorColor );
     //console.log(result);
     mostrarAutos(result);
 }
@@ -128,6 +134,52 @@ function filtrarPorAño(auto) {
     const { year } = datosBusqueda;
     if(year) {
         return auto.year == year;
+    }
+
+    return auto;
+}
+
+
+function filtrarPorMinimo(auto) {
+    const { minimo } = datosBusqueda;
+    if(minimo) {
+        return auto.precio >= minimo;
+    }
+
+    return auto;
+}
+
+function filtrarPorMaximo(auto) {
+    const { maximo } = datosBusqueda;
+    if(maximo) {
+        return auto.precio <= maximo;
+    }
+
+    return auto;
+}
+
+function filtrarPorPuertas(auto) {
+    const { puertas } = datosBusqueda;
+    if(puertas) {
+        return auto.puertas == puertas;
+    }
+
+    return auto;
+}
+
+function filtrarPorTransmision(auto) {
+    const { transmision } = datosBusqueda;
+    if(transmision) {
+        return auto.transmision == transmision;
+    }
+
+    return auto;
+}
+
+function filtrarPorColor(auto) {
+    const { color } = datosBusqueda;
+    if(color) {
+        return auto.color == color;
     }
 
     return auto;
