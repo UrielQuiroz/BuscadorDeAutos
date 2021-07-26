@@ -118,7 +118,21 @@ function filtrarAuto(){
     const result = autos.filter( filtraPorMarca ).filter( filtrarPorAño ).filter( filtrarPorMinimo ).filter( filtrarPorMaximo ).
     filter( filtrarPorPuertas ).filter( filtrarPorTransmision ).filter( filtrarPorColor );
     //console.log(result);
-    mostrarAutos(result);
+
+    if(result.length){
+        mostrarAutos(result);
+    }else {
+        sinResultados();
+    }
+
+}
+
+function sinResultados() {
+    limpiarHTML();
+    const noResult = document.createElement('div');
+    noResult.classList.add('alerta', 'error');
+    noResult.textContent = 'No hay resultados';
+    result.appendChild(noResult);
 }
 
 function filtraPorMarca(auto) {
